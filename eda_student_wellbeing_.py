@@ -8,14 +8,10 @@ import matplotlib.pyplot as plt
 sns.set(style="whitegrid", context="notebook")
 plt.rcParams["figure.figsize"] = (7.5, 4.5)
 
-# ----------------------------
 # Load
-# ----------------------------
 df = pd.read_csv("student_wellbeing_dataset.csv")  # attached file
 
-# ----------------------------
 # Data Exploration (audit)
-# ----------------------------
 print("Shape:", df.shape)
 print("\nInfo:")
 print(df.info())
@@ -41,7 +37,6 @@ plt.title("Missingness Heatmap")
 plt.tight_layout()
 plt.show()
 
-# ----------------------------
 # Data Preprocessing
 # ----------------------------
 # Normalize categorical labels
@@ -85,9 +80,7 @@ if "Stress_Level" in df.columns:
 df = df.drop_duplicates()
 print("Post-clean shape:", df.shape)
 
-# ----------------------------
 # EDA Task 1: Relations of study/sleep/screen with CGPA
-# ----------------------------
 corr_cols = [c for c in ["Hours_Study","Sleep_Hours","Screen_Time","Attendance","Stress_ord","Extra_bin","CGPA"] if c in df.columns]
 corr = df[corr_cols].corr().round(3)
 print("\nCorrelation with CGPA:\n", corr["CGPA"].sort_values(ascending=False))
@@ -104,9 +97,7 @@ for x in [c for c in ["Hours_Study","Sleep_Hours","Screen_Time","Attendance"] if
     plt.tight_layout()
     plt.show()
 
-# ----------------------------
 # EDA Task 2: Compare CGPA across stress levels
-# ----------------------------
 if "Stress_Level" in df.columns:
     order = [g for g in ["Low","Medium","High"] if g in df["Stress_Level"].unique()]
     if len(order) >= 2:
@@ -118,9 +109,7 @@ if "Stress_Level" in df.columns:
         print("\nCGPA by Stress Level (group stats):")
         print(df.groupby("Stress_Level")["CGPA"].agg(["count","mean","median","std"]).round(3))
 
-# ----------------------------
-# Insights (from steps up to Task 2 only)
-# ----------------------------
+# Insights
 insights = []
 
 # Correlation highlights (excluding CGPA with itself)
@@ -156,4 +145,5 @@ if "Stress_Level" in df.columns:
 print("\nInsights (from Tasks 1–2):")
 for i, s in enumerate(insights, 1):
     print(f"{i}. {s}")
+
 
