@@ -1,2 +1,2 @@
-# Project1
-My first project
+# Projec1
+Project 1
